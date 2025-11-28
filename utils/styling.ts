@@ -2,10 +2,10 @@ import { Dimensions, PixelRatio } from "react-native";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const { shortDimension, longDimension } =
+const [shortDimension, longDimension] =
     SCREEN_WIDTH < SCREEN_HEIGHT
-        ? { shortDimension: SCREEN_WIDTH, longDimension: SCREEN_HEIGHT }
-        : { shortDimension: SCREEN_HEIGHT, longDimension: SCREEN_WIDTH };
+        ? [SCREEN_WIDTH, SCREEN_HEIGHT]
+        : [SCREEN_HEIGHT, SCREEN_WIDTH ];
 
 const guidelineBaseWidth = 375;
 const guidelineBaseHeight = 812;

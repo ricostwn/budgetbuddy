@@ -8,6 +8,7 @@
       "@/*": [
         "./*"
       ]
+      //"@firebase/auth": ["./node_modules/@firebase/dist/index.rn.d.ts"]
     }
   },
   "include": [
