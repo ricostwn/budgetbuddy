@@ -75,19 +75,20 @@ const walletModal = () => {
     }
 
     const showDeleteAlert = ()=>{
-        Alert.alert('Confirm', 'Are you sure want do delete this?'),
-        [
-            {
-                text: 'Cancel',
-                onPress: () => console.log('cancel delete'),
-                style: 'cancel'
-            },
-            {
-                text: 'Delete',
-                onPress: () => onDelete(),
-                style: 'destructive'
-            }
-        ]
+        Alert.alert('Confirm', 'Are you sure want do delete this?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('cancel delete'),
+                    style: 'cancel'
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => onDelete(),
+                    style: 'destructive'
+                }
+            ]
+        )  
     }
 
   return (
