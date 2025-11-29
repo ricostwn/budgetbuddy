@@ -1,8 +1,8 @@
-import { CLOUDINARY_UPLOAD_PRESET } from "@/constants"
-import { ResponseType } from "@/types"
-import axios from 'axios'
+import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "@/constants";
+import { ResponseType } from "@/types";
+import axios from 'axios';
 
-const CLOUDINARY_API_URL = 'https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload'
+const CLOUDINARY_API_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`
 
 export const uploadFileToCloudinary = async (
     file: {uri?: string} | string,
@@ -45,14 +45,14 @@ export const uploadFileToCloudinary = async (
 
 export const getProfileImage = (file:any)=>{
     if(file && typeof file == 'string') return file
-    if(file && typeof file == 'object') return file.const 
+    if(file && typeof file == 'object') return file.uri 
     
     return require('@/assets/images/defaultAvatar.png')
 }
 
 export const getFilePath = (file:any)=>{
     if(file && typeof file == 'string') return file
-    if(file && typeof file == 'object') return file.const 
+    if(file && typeof file == 'object') return file.uri
     
     return null
 }

@@ -3,7 +3,7 @@ import { collection, onSnapshot, query, QueryConstraint } from 'firebase/firesto
 import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 
-const UseFetchData = <T>(
+const useFetchData = <T>(
     collectionName: string,
     constraints: QueryConstraint[] = []
 ) => {
@@ -37,6 +37,6 @@ const UseFetchData = <T>(
   return {data, loading, error}
 }
 
-export default UseFetchData
+export default useFetchData
 
 const styles = StyleSheet.create({})
