@@ -5,9 +5,9 @@ import { verticalScale } from '@/utils/styling'
 import { FlashList } from '@shopify/flash-list'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import Animated, { FadeInDown } from 'react-native-reanimated'
 import Loading from './Loading'
 import Typo from './Typo'
-import Animated, { FadeInDown } from 'react-native-reanimated'
 
 const TransactionList = ({
     data,
@@ -84,7 +84,7 @@ const TransactionItem = ({
                     </Typo>
                 </View>
                 <View style={styles.amountDate}>
-                    <Typo fontWeight={'500' colors={colors.rose}}>
+                    <Typo fontWeight={'500'} color={colors.rose}>
                         - $23
                     </Typo>
                     <Typo size={13} color={colors.neutral400}>

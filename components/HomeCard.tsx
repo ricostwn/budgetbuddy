@@ -1,79 +1,100 @@
 import { colors, spacingX, spacingY } from '@/constants/theme'
+import { useAuth } from '@/contexts/authContext'
+import useFetchData from '@/hooks/useFetchData'
+import { WalletType } from '@/types'
 import { scale, verticalScale } from '@/utils/styling'
+import { orderBy, where } from 'firebase/firestore'
 import * as Icons from 'phosphor-react-native'
 import React from 'react'
 import { ImageBackground, StyleSheet, View } from 'react-native'
 import Typo from './Typo'
 
 const HomeCard = () => {
-  return (
-    <ImageBackground
-        source={require('@/assets/images/card.png')}
-        resizeMode='stretch'
-        style={styles.bgImage}
-    >
-        <View style={styles.container}>
-            <View>
-                {/*total balance*/}
-                <View style={styles.totalBalanceRow}>
-                    <Typo color={colors.neutral800} size={17} fontWeight={'500'}>
-                        Total Balance
+
+    const { user } = useAuth()
+
+    const { data: wallets, error, loading: walletLoading } = useFetchData<WalletType>('wallets', [
+        where('uid', '==', user?.uid),
+        orderBy('created', 'desc')
+    ])
+
+    const getTotals = () => {
+        return wallets.reduce((totals: any, item: WalletType) => {
+            totals.balance = totals.balance + Number(item.amount)
+            totals.income = totals.income + Number(item.totalIncome)
+            totals.expense = totals.expenses + Number(item.totalExpenses)
+            return totals
+        }, { balance: 0, income: 0, expenses: 0 })
+    }
+
+    return (
+        <ImageBackground
+            source={require('@/assets/images/card.png')}
+            resizeMode='stretch'
+            style={styles.bgImage}
+        >
+            <View style={styles.container}>
+                <View>
+                    {/*total balance*/}
+                    <View style={styles.totalBalanceRow}>
+                        <Typo color={colors.neutral800} size={17} fontWeight={'500'}>
+                            Total Balance
+                        </Typo>
+                        <Icons.DotsThreeOutlineIcon
+                            size={verticalScale(23)}
+                            color={colors.black}
+                            weight='fill'
+                        />
+                    </View>
+                    <Typo color={colors.black} size={30} fontWeight={'bold'}>
+                        $ {getTotals()?.balance?.toFixed(2)}
                     </Typo>
-                    <Icons.DotsThreeOutlineIcon
-                        size={verticalScale(23)}
-                        color={colors.black}
-                        weight='fill'
-                    />
                 </View>
-                <Typo color={colors.black} size={30} fontWeight={'bold'}>
-                    $666
-                </Typo>
-            </View>
-            {/*total expense and income*/}
-            <View style={styles.stats}>
-                {/*income*/}
-                <View style={{gap: verticalScale(5)}}>
-                    <View style={styles.incomeExpense}>
-                        <View style={styles.statsIcon}>
-                            <Icons.ArrowDownIcon
-                                size={verticalScale(15)}
-                                color={colors.black}
-                                weight='bold'
-                            />
+                {/*total expense and income*/}
+                <View style={styles.stats}>
+                    {/*income*/}
+                    <View style={{ gap: verticalScale(5) }}>
+                        <View style={styles.incomeExpense}>
+                            <View style={styles.statsIcon}>
+                                <Icons.ArrowDownIcon
+                                    size={verticalScale(15)}
+                                    color={colors.black}
+                                    weight='bold'
+                                />
+                            </View>
+                            <Typo size={16} color={colors.neutral700} fontWeight={'500'}>
+                                Income
+                            </Typo>
                         </View>
-                        <Typo size={16} color={colors.neutral700} fontWeight={'500'}>
-                            Income
-                        </Typo>
-                    </View>
-                    <View style={{alignSelf: 'center'}}>
-                        <Typo size={17} color={colors.green} fontWeight={'600'}>
-                            $999
-                        </Typo>
-                    </View>
-                </View>
-                {/*expense*/}
-                <View style={{gap: verticalScale(5)}}>
-                    <View style={styles.incomeExpense}>
-                        <View style={styles.statsIcon}>
-                            <Icons.ArrowUpIcon
-                                size={verticalScale(15)}
-                                color={colors.black}
-                                weight='bold'
-                            />
+                        <View style={{ alignSelf: 'center' }}>
+                            <Typo size={17} color={colors.green} fontWeight={'600'}>
+                                $ {getTotals()?.income?.toFixed(2)}
+                            </Typo>
                         </View>
-                        <Typo size={16} color={colors.neutral700} fontWeight={'500'}>
-                            Expense
-                        </Typo>
                     </View>
-                    <View style={{alignSelf: 'center'}}>
-                        <Typo size={17} color={colors.rose} fontWeight={'600'}>
-                            $888
-                        </Typo>
+                    {/*expense*/}
+                    <View style={{ gap: verticalScale(5) }}>
+                        <View style={styles.incomeExpense}>
+                            <View style={styles.statsIcon}>
+                                <Icons.ArrowUpIcon
+                                    size={verticalScale(15)}
+                                    color={colors.black}
+                                    weight='bold'
+                                />
+                            </View>
+                            <Typo size={16} color={colors.neutral700} fontWeight={'500'}>
+                                Expense
+                            </Typo>
+                        </View>
+                        <View style={{ alignSelf: 'center' }}>
+                            <Typo size={17} color={colors.rose} fontWeight={'600'}>
+                                $ {getTotals()?.expenses?.toFixed(2)}
+                            </Typo>
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
-    </ImageBackground>
+        </ImageBackground>
     )
 }
 
@@ -102,7 +123,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-    statsIcon : {
+    statsIcon: {
         backgroundColor: colors.neutral350,
         padding: spacingY._5,
         borderRadius: 50,
