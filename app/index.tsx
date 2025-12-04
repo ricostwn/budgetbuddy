@@ -14,7 +14,7 @@ const index = () => {
       <Image
         style={styles.logo}
         resizeMode="contain"
-        source={require('@/assets/images/splashImage.png')}
+        source={require('@/assets/images/splashImage3.png')}
       />
     </View>
   );
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.neutral900,
   },
   logo: {
-    height: "20%",
+    height: "50%",
     aspectRatio: 1,
   },
 });

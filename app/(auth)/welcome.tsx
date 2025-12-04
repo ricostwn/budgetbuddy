@@ -21,7 +21,7 @@ const Welcome: React.FC = () => {
 
                     <Animated.Image
                         entering={FadeIn.duration(500)}
-                        source={require('@/assets/images/welcome.png')}
+                        source={require('@/assets/images/welcome3.png')}
                         style={styles.welcomeImage}
                         resizeMode="contain"
                     />

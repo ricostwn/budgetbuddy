@@ -26,18 +26,6 @@ const profile = () => {
       bgColor: '#6366f1'
     },
     {
-      title: 'Settings',
-      icon: <Icons.GearSix size={26} color={colors.white} weight='fill'/>,
-      //routeName: '/(modals)/profileModal',
-      bgColor: '#059669'
-    },
-    {
-      title: 'Privacy Policy',
-      icon: <Icons.Lock size={26} color={colors.white} weight='fill'/>,
-      //routeName: '/(modals)/profileModal',
-      bgColor: colors.neutral600
-    },
-    {
       title: 'Logout',
       icon: <Icons.Power size={26} color={colors.white} weight='fill'/>,
       //routeName: '/(modals)/profileModal',
