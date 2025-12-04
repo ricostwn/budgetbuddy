@@ -209,9 +209,8 @@ export const deleteTransaction = async (
     walletId: string
 ) => {
     try {
-        const transactionRef = await getDoc(
-            doc(firestore, 'transactions', transactionId)
-        )
+        const transactionRef = await doc(firestore, 'transactions', transactionId)
+
         const transactionSnapshot = await getDoc(transactionRef)
 
         if (!transactionSnapshot.exists()) {
